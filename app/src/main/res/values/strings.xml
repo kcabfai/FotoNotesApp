@@ -8,4 +8,6 @@
     <string name="add_note_text_content">Obsah</string>
     <string name="add_note_text_title">Nadpis</string>
     <string name="add_note_clear_text_button">Vyčistit</string>
+    <string name="title_edit_hint">Sem napište název vaší poznámky</string>
+    <string name="edit_content_hint">Sem napište svoji poznámku</string>
 </resources>

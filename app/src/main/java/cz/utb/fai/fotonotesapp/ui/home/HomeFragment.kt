@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import cz.utb.fai.fotonotesapp.databinding.FragmentHomeBinding
+import cz.utb.fai.fotonotesapp.model.Note
+import cz.utb.fai.fotonotesapp.model.NoteAdapter
 
 class HomeFragment : Fragment() {
 
@@ -16,6 +18,8 @@ class HomeFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    lateinit var notes: ArrayList<Note>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,10 +32,19 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        val list = ArrayList<Note>()
+        list.add(Note("Hello There", "How is this?", System.currentTimeMillis()))
+        list.add(Note("Hello There Twice", "How is this?", System.currentTimeMillis()))
+
+        if(homeViewModel.notes.value != null)
+            notes = homeViewModel.notes.value!!
+
+
+
+
+        binding.rvNotes.adapter = NoteAdapter(notes)
+        binding.rvNotes.layoutManager = LinearLayoutManager(this.context)
+
         return root
     }
 

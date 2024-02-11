@@ -4,14 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="15dp"
     tools:context=".ui.addnote.AddNoteFragment">
 
     <EditText
         android:id="@+id/editNoteTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="text"
+        android:autofillHints="none"
         android:text=""
-        android:hint="Sem napište název vaší poznámky"
+        android:hint="@string/title_edit_hint"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -22,8 +25,9 @@
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
+        android:autofillHints="none"
         app:layout_constraintTop_toBottomOf="@+id/editNoteTitle"
-        android:hint="Sem napište svoji poznámku"
+        android:hint="@string/edit_content_hint"
         android:text=""
         tools:layout_editor_absoluteX="-16dp" />
 
