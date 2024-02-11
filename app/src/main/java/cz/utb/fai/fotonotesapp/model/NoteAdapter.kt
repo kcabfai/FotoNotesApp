@@ -6,11 +6,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import cz.utb.fai.fotonotesapp.R
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class NoteAdapter(private val mNotes : ArrayList<Note>) : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
     inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val titleView = itemView.findViewById<TextView>(R.id.textViewTitle)
         val contentView = itemView.findViewById<TextView>(R.id.textViewContent)
+        val stampView = itemView.findViewById<TextView>(R.id.textTimeStamp)
     }
 
 
@@ -27,9 +30,11 @@ class NoteAdapter(private val mNotes : ArrayList<Note>) : RecyclerView.Adapter<N
 
         val titleView = holder.titleView
         val contentView = holder.contentView
+        val stampView = holder.stampView
 
         titleView.setText(note.title)
         contentView.setText(note.content)
+        stampView.setText(SimpleDateFormat("MM/dd/yyyy hh:mm:ss").format(Date(note.timestamp)))
 
     }
 

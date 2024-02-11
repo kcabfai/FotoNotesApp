@@ -8,7 +8,11 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import cz.utb.fai.fotonotesapp.MyApplication
 import cz.utb.fai.fotonotesapp.databinding.FragmentAddnoteBinding
+import cz.utb.fai.fotonotesapp.ui.home.HomeViewModelFactory
+import kotlinx.coroutines.launch
 
 class AddNoteFragment : Fragment() {
 
@@ -23,8 +27,9 @@ class AddNoteFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val app = activity?.application as MyApplication
         val addNoteViewModel =
-            ViewModelProvider(this).get(AddNoteViewModel::class.java)
+            ViewModelProvider(this, AddNoteViewModelFactory(app.notesRepository)).get(AddNoteViewModel::class.java)
 
         _binding = FragmentAddnoteBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -37,10 +42,12 @@ class AddNoteFragment : Fragment() {
         }
 
         saveButton.setOnClickListener {
-            addNoteViewModel.createAndSaveNote(
-                binding.editNoteTitle.text.toString(),
-                binding.editTextTextMultiLine.text.toString()
-            )
+            lifecycleScope.launch() {
+                addNoteViewModel.createAndSaveNote(
+                    binding.editNoteTitle.text.toString(),
+                    binding.editTextTextMultiLine.text.toString()
+                )
+            }
         }
 
         addNoteViewModel.note.observe(viewLifecycleOwner) {
