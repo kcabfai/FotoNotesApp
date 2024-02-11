@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: NoteRepository) : ViewModel() {
-    private val _notes = MutableLiveData<ArrayList<Note>>()
+    private val _notes = MutableLiveData<ArrayList<Note>>(ArrayList<Note>())
 
     val notes: LiveData<ArrayList<Note>> = _notes
 

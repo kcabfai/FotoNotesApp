@@ -1,7 +1,6 @@
 package cz.utb.fai.fotonotesapp.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +15,6 @@ import cz.utb.fai.fotonotesapp.model.NoteAdapter
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     lateinit var notes: ArrayList<Note>
@@ -35,25 +31,19 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        /*val list = ArrayList<Note>()
-        list.add(Note("Hello There", "How is this?", System.currentTimeMillis()))
-        list.add(Note("Hello There Twice", "How is this?", System.currentTimeMillis()))*/
-
-        Log.d("ECHO", "EHOJ EHOJ")
-
-        if(homeViewModel.notes.value != null) {
-            notes = homeViewModel.notes.value !!
-            binding.rvNotes.adapter = NoteAdapter(notes)
-            binding.rvNotes.layoutManager = LinearLayoutManager(this.context)
+        notes = ArrayList<Note>()
+        homeViewModel.notes.value?.let {
+            notes.addAll(it)
         }
 
-        Log.d("ECHO", "EHOJ EHOJ2")
+        binding.rvNotes.adapter = NoteAdapter(notes)
+        binding.rvNotes.layoutManager = LinearLayoutManager(this.context)
 
-
-
-
-
-        Log.d("ECHO", "EHOJ EHOJ3")
+        homeViewModel.notes.observe(viewLifecycleOwner) { newNotes ->
+            notes.clear()
+            notes.addAll(newNotes)
+            binding.rvNotes.adapter?.notifyDataSetChanged()
+        }
 
         return root
     }
