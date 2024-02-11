@@ -10,7 +10,8 @@
         android:id="@+id/editNoteTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text=""
+        android:hint="Sem napište název vaší poznámky"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -22,7 +23,8 @@
         android:gravity="start|top"
         android:inputType="textMultiLine"
         app:layout_constraintTop_toBottomOf="@+id/editNoteTitle"
-        android:text="TextView"
+        android:hint="Sem napište svoji poznámku"
+        android:text=""
         tools:layout_editor_absoluteX="-16dp" />
 
     <LinearLayout
